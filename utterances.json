@@ -15,6 +15,14 @@
     {
       "name": "TimesTableIntent",
       "samples": [
+        "For the {number} times table from {inputStartNumber} to {inputEndNumber} please",
+        "For the {number} times table from {inputStartNumber} to {inputEndNumber}",
+        "For the {number} times table from {inputStartNumber} up to {inputEndNumber} please",
+        "For the {number} times table from {inputStartNumber} up to {inputEndNumber}",
+        "For the {number} times table please",
+        "For the {number} times table up to {inputEndNumber} please",
+        "For the {number} times table up to {inputEndNumber}",
+        "For the {number} times table",
         "Give me multiples of {number} from {inputStartNumber} to {inputEndNumber} please",
         "Give me multiples of {number} from {inputStartNumber} to {inputEndNumber}",
         "Give me multiples of {number} from {inputStartNumber} up to {inputEndNumber} please",
