@@ -27,11 +27,11 @@ var handlers = {
     },
 
     'TimesTableIntent': function () {
-        // set a default maxNumber
-        var maxNumber = 10;
+        // set a default upToNumber
+        var upToNumber = 10;
         // get variables from input slots
         var inputNumber = parseInt(this.event.request.intent.slots.number.value);
-        var inputMax = parseInt(this.event.request.intent.slots.inputMax.value);
+        var inputUpTo = parseInt(this.event.request.intent.slots.inputMax.value);
 
         if (isNaN(inputNumber)) {
             errorMessage = 'Sorry, I didn\'t understand that number. Please ask for the times table you would like to hear. For example <emphasis>the ' + getRandomInt(1,10) + ' times table</emphasis>.';
@@ -39,13 +39,13 @@ var handlers = {
             return;
         }
 
-        if (!isNaN(inputMax)) {
-            maxNumber = inputMax;
+        if (!isNaN(inputUpTo)) {
+            upToNumber = inputUpTo;
         }
 
-        var responseOutput = 'The ' + inputNumber + ' times table, up to ' + maxNumber + ':' + PAUSE;
+        var responseOutput = 'The ' + inputNumber + ' times table, up to ' + upToNumber + ':' + PAUSE;
 
-        for(var i=1; i <= maxNumber; i++){
+        for(var i=1; i <= upToNumber; i++){
             var sumEquals = inputNumber * i;
             responseOutput += i + ' times ' + inputNumber + ' is ' + sumEquals + PAUSE;
         }
