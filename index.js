@@ -27,11 +27,14 @@ var handlers = {
     },
 
     'TimesTableIntent': function () {
-        // set a default upToNumber
-        var upToNumber = 10;
+        // set defaults
+        var startNumber = 1,
+            endNumber = 10,
+            maxNumbersToOutput = 30;
         // get variables from input slots
         var inputNumber = parseInt(this.event.request.intent.slots.number.value);
-        var inputUpTo = parseInt(this.event.request.intent.slots.inputMax.value);
+        var inputEndNumber = parseInt(this.event.request.intent.slots.inputEndNumber.value);
+        var inputStartNumber = parseInt(this.event.request.intent.slots.inputStartNumber.value);
 
         if (isNaN(inputNumber)) {
             errorMessage = 'Sorry, I didn\'t understand that number. Please ask for the times table you would like to hear. For example <emphasis>the ' + getRandomInt(1,10) + ' times table</emphasis>.';
@@ -39,13 +42,35 @@ var handlers = {
             return;
         }
 
-        if (!isNaN(inputUpTo)) {
-            upToNumber = inputUpTo;
+        // start of our spoken response
+        var responseOutput = 'The ' + inputNumber + ' times table';
+
+        // replace startNumber with input if provided
+        if (!isNaN(inputStartNumber)) {
+            startNumber = inputStartNumber;
+            responseOutput += ', from ' + inputStartNumber;
         }
 
-        var responseOutput = 'The ' + inputNumber + ' times table, up to ' + upToNumber + ':' + PAUSE;
+        // replace endNumber with input if provided
+        if (!isNaN(inputEndNumber)) {
+            endNumber = inputEndNumber;
+            // limit the amount of numbers to output so the response doesn't get too large and error out
+            if (endNumber > maxNumbersToOutput) {
+                endNumber = maxNumbersToOutput;
+            }
+            responseOutput += ', up to ' + endNumber;
+        }
 
-        for(var i=1; i <= upToNumber; i++){
+        responseOutput += PAUSE;
+
+        // error out if the starting number is above the end number
+        if (endNumber < startNumber) {
+            errorMessage = 'Your from number has to be less than the up to number. For example <emphasis>the ' + getRandomInt(1,10) + ' times table from ' + getRandomInt(1,10) + ' to ' + getRandomInt(10,20) + '</emphasis>.';
+            this.emit('ErrorHandler');
+            return;
+        }
+
+        for(var i=startNumber; i <= endNumber; i++){
             var sumEquals = inputNumber * i;
             responseOutput += i + ' times ' + inputNumber + ' is ' + sumEquals + PAUSE;
         }
