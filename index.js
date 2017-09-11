@@ -4,7 +4,7 @@ var Alexa = require('alexa-sdk');
 const APP_ID = "amzn1.ask.skill.8e774613-8603-4e15-97eb-95efdfcf3caf";
 
 const SKILL_NAME = "Learn Times Tables";
-const HELP_MESSAGE = "You can ask me to read a number's times table, for example try asking for the 5 times table up to 7";
+const HELP_MESSAGE = "You can ask me to read a number's times table, for example try asking for the " + getRandomInt(1,10) + " times table up to " + getRandomInt(1,10);
 const CANCEL_MESSAGE = "Would you like to hear another times table?";
 const STOP_MESSAGE = "Goodbye!";
 const HELP_REPROMPT = "Which times table would you like to hear?";
@@ -34,7 +34,7 @@ var handlers = {
         var inputMax = parseInt(this.event.request.intent.slots.inputMax.value);
 
         if (isNaN(inputNumber)) {
-            errorMessage = 'Sorry, I didn\'t understand that number. Please ask for the times table you would like to hear. For example <emphasis>the 3 times table</emphasis>.';
+            errorMessage = 'Sorry, I didn\'t understand that number. Please ask for the times table you would like to hear. For example <emphasis>the ' + getRandomInt(1,10) + ' times table</emphasis>.';
             this.emit('ErrorHandler');
             return;
         }
@@ -79,3 +79,8 @@ var handlers = {
         this.emit(':responseReady');
     }
 };
+
+function getRandomInt(min, max)
+{
+    return Math.floor(Math.random() * (max-min+1)+min);
+}
