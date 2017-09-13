@@ -85,7 +85,7 @@ var handlers = {
     },
 
     'AMAZON.CancelIntent': function () {
-        this.response.speak(CANCEL_MESSAGE + PAUSE + HELP_REPROMPT).listen(HELP_REPROMPT);
+        this.response.speak(STOP_MESSAGE);
         this.emit(':responseReady');
     },
 
